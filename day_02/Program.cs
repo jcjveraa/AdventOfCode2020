@@ -12,6 +12,7 @@ namespace day_02
             List<string> input = fileLoaders.LoadStrings();
 
             var countValid = 0;
+            var countValidTwo = 0;
 
             foreach (var item in input)
             {
@@ -31,9 +32,15 @@ namespace day_02
                     countValid++;
                 }
 
+                if (starTwo(letter, password, minNumber, maxNumber))
+                {
+                    countValidTwo++;
+                }
+
             }
 
-            Console.WriteLine("Number of valid items is {0}", countValid);
+            Console.WriteLine("Number of valid items for star 1 is {0}", countValid);
+            Console.WriteLine("Number of valid items for star 2 is {0}", countValidTwo);
         }
 
         static int countCharOccurrence(char c, string s)
@@ -52,6 +59,13 @@ namespace day_02
                 i += 1;
             }
             return i;
+        }
+
+        static bool starTwo(char c, string s, int pos1, int pos2)
+        {
+            bool test1 = s.ToCharArray()[pos1 - 1] == c;
+            bool test2 = s.ToCharArray()[pos2 - 1] == c;
+            return test1 ^ test2;
         }
     }
 }
