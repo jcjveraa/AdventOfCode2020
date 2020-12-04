@@ -65,7 +65,7 @@ namespace day_02
         {
             bool test1 = s.ToCharArray()[pos1 - 1] == c;
             bool test2 = s.ToCharArray()[pos2 - 1] == c;
-            return test1 ^ test2;
+            return test1 ^ test2; // ^= XOR
         }
     }
 }
