@@ -12,6 +12,7 @@ namespace day_05
             List<string> input = fileLoaders.LoadStrings();
 
             uint maxId = 0;
+            List<uint> ids = new List<uint>();
 
             foreach (string line in input)
             {
@@ -55,13 +56,26 @@ namespace day_05
                 }
 
                 uint id = row * 8 + col;
+                ids.Add(id);
                 if (id > maxId)
                 {
                     maxId = id;
                 }
                 Console.WriteLine("Row is {0}, column = {1}, ID = {2}", row, col, id);
             }
+
+            ids.Sort();
+            uint star2 = 0;
+            for (int i = 0; i < ids.Count; i++)
+            {
+                if (ids[i + 1] != ids[i] + 1)
+                {
+                    star2 = ids[i] + 1;
+                    break;
+                }
+            }
             Console.WriteLine("Part 1 answer is {0}", maxId);
+            Console.WriteLine("Part 2 answer is {0}", star2);
         }
     }
 }
