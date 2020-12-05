@@ -5,12 +5,23 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": ".NET Core Launch (console)",
+            "name": ".NET Core Launch Test (console)",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${fileDirname}/bin/Debug/netcoreapp3.1/day_04.dll",
+            "program": "${fileDirname}/bin/Debug/netcoreapp3.1/${relativeFileDirname}.dll",
             "args": [],
+            "cwd": "${fileDirname}/",
+            "console": "internalConsole",
+            "stopAtEntry": false
+        },
+        {
+            "name": ".NET Core Launch Live (console)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${fileDirname}/bin/Debug/netcoreapp3.1/${relativeFileDirname}.dll",
+            "args": ["-- live"],
             "cwd": "${fileDirname}/",
             "console": "internalConsole",
             "stopAtEntry": false
