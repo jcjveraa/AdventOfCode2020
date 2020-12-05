@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 using _00_common;
 
 namespace day_04
@@ -37,6 +39,10 @@ namespace day_04
                 if (Star1Decoder(line))
                 {
                     star1++;
+                    if (Star2Decoder(line))
+                    {
+                        star2++;
+                    }
                 }
             }
 
@@ -64,6 +70,80 @@ namespace day_04
 
             return true;
 
+        }
+
+        static bool Star2Decoder(string input)
+        {
+            var split = input.TrimEnd().Split(' ');
+            Dictionary<string, string> keyValuePairs = new Dictionary<string, string>();
+
+            foreach (string item in split)
+            {
+                var split2 = item.Split(':');
+                // Console.WriteLine(item);
+                keyValuePairs.Add(split2[0], split2[1]);
+            }
+            // "byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"
+            if (Int32.Parse(keyValuePairs["byr"]) < 1920 || Int32.Parse(keyValuePairs["byr"]) > 2002)
+            {
+                return false;
+            }
+
+            if (Int32.Parse(keyValuePairs["iyr"]) < 2010 || Int32.Parse(keyValuePairs["iyr"]) > 2020)
+            {
+                return false;
+            }
+
+            if (Int32.Parse(keyValuePairs["eyr"]) < 2020 || Int32.Parse(keyValuePairs["eyr"]) > 2030)
+            {
+                return false;
+            }
+
+            string hgt = keyValuePairs["hgt"];
+            if (hgt.EndsWith("cm") &&
+             hgt.Length == 5)
+            {
+                var val = Int32.Parse(hgt.Substring(0, 3));
+                if (val < 150 || val > 193)
+                {
+                    return false;
+                }
+            }
+            else if (hgt.EndsWith("in") && hgt.Length == 4)
+            {
+                var val = Int32.Parse(hgt.Substring(0, 2));
+                if (val < 59 || val > 76)
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+
+
+            string hclPattern = "#[0-9a-f]{6}";
+            Regex regex = new Regex(hclPattern);
+            if (!regex.Match(keyValuePairs["hcl"]).Success)
+            {
+                return false;
+            }
+
+            string[] allowableEyes = "amb blu brn gry grn hzl oth".Split(' ');
+            if (!allowableEyes.Any(ae => ae == keyValuePairs["ecl"]))
+            {
+                return false;
+            }
+
+            string pidPattern = "^[0-9]{9}$";
+            Regex regex2 = new Regex(pidPattern);
+            if (!regex2.Match(keyValuePairs["pid"]).Success)
+            {
+                return false;
+            }
+
+            return true; // TODO
         }
     }
 }

@@ -7,6 +7,11 @@
             "label": "build",
             "command": "dotnet",
             "type": "shell",
+            "windows": {
+                "options": {
+                    "cwd": "${fileDirname}"
+                }
+            },
             "args": [
                 "build",
                 "/property:GenerateFullPaths=true",
