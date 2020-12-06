@@ -1,0 +1,17 @@
+{
+    "$schema": "http://json.schemastore.org/template",
+    "author": "Jelle V.",
+    "classifications": [
+        "Console"
+    ],
+    "name": "AoC template",
+    "identity": "AoCTemplate.CSharp",
+    "groupIdentity": "AoCTemplate",
+    "shortName": "aoc", // You can create the project using this short name instead of the one above.
+    "tags": {
+        "language": "C#", // Specify that this template is in C#.
+        "type": "project"
+    },
+    "sourceName": "AoCTemplate", // Will replace the string 'MyProject.StarterWeb' with the value provided via -n.
+    "preferNameDirectory": true
+}
