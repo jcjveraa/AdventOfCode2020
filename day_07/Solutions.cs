@@ -54,12 +54,12 @@ namespace day_07
                         NewShinyGoldBagContainers.Add(bag);
                 }
 
-                Console.WriteLine("Checking " + bagToBeChecked.BagName);
+                // Console.WriteLine("Checking " + bagToBeChecked.BagName);
                 foreach (var item in bagsThatCanHoldThisBag)
                 {
-                    Console.Write(item.BagName + ", ");
+                    // Console.Write(item.BagName + ", ");
                 }
-                Console.WriteLine("\n");
+                // Console.WriteLine("\n");
 
                 ProcessedShinyGoldBagContainers.Add(bagToBeChecked);
             }
@@ -68,6 +68,21 @@ namespace day_07
 
             Console.WriteLine("Part 1 answer {0}", ProcessedShinyGoldBagContainers.Count);
 
+            var shinyBag = bags.Find(b => b.BagName == "shiny gold");
+            Console.WriteLine("Part 2 answer {0}", (MakeTheSum(shinyBag, 1)));
+        }
+
+        private long MakeTheSum(Bag b, long currentMultiplier)
+        {
+            long answer = 0;
+
+            foreach (var item in b.ShouldContain)
+            {
+                answer += item.Value * currentMultiplier;
+                answer += MakeTheSum(item.Key, item.Value * currentMultiplier);
+            }
+
+            return answer;
         }
 
         private Bag FindOrAddNewBag(List<Bag> bags, string bagName)
