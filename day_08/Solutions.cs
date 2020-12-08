@@ -7,11 +7,53 @@ namespace day_08
     {
         public Solutions(List<string> input)
         {
+            var ranTillTheEnd = false;
+            int accumulator = TestForLoops(input, ref ranTillTheEnd);
+
+            Console.WriteLine("Part 1 answer is {0}, ran tille end is {1}", accumulator, ranTillTheEnd);
+
+            for (int i = 0; i < input.Count; i++)
+            {
+                if (input[i].StartsWith('a'))
+                {
+                    continue;
+                }
+
+                if (input[i].StartsWith('j'))
+                {
+                    input[i] = input[i].Replace('j', 'n');
+                    accumulator = TestForLoops(input, ref ranTillTheEnd);
+                    if (ranTillTheEnd)
+                    {
+                        break;
+                    }
+                    input[i] = input[i].Replace('n', 'j');
+                    continue;
+                }
+                if (input[i].StartsWith('n'))
+                {
+                    input[i] = input[i].Replace('n', 'j');
+
+                    accumulator = TestForLoops(input, ref ranTillTheEnd);
+                    if (ranTillTheEnd)
+                    {
+                        break;
+                    }
+                    input[i] = input[i].Replace('j', 'n');
+                    continue;
+                }
+            }
+
+            Console.WriteLine("Part 2 answer is {0}, ran tille end is {1}", accumulator, ranTillTheEnd);
+        }
+
+        private static int TestForLoops(List<string> input, ref bool ranTillTheEnd)
+        {
             var currentLine = 0;
             var accumulator = 0;
             var visitedLines = new List<int>();
 
-            while (true)
+            while (true && currentLine < input.Count)
             {
                 if (visitedLines.Contains(currentLine))
                 {
@@ -46,7 +88,9 @@ namespace day_08
                 }
             }
 
-            Console.WriteLine("Part 1 answer is {0}", accumulator);
+            ranTillTheEnd = currentLine == input.Count;
+
+            return accumulator;
         }
     }
 }
