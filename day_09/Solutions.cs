@@ -69,7 +69,7 @@ namespace day_09
             // reverse as likely it's quicker
             for (int i = allNumbers.Count() - 1; i >= 0; i--)
             {
-                for (int window = 2; window < allNumbers.Count(); window++)
+                for (int window = 3; window < allNumbers.Count(); window++)
                 {
                     var tempList = allNumbers.Skip(i).Take(window);
                     if (tempList.Aggregate((a, next) => a + next) == target)
