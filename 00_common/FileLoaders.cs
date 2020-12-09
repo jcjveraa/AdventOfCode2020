@@ -43,5 +43,18 @@ namespace _00_common
             List<string> vs = new List<string>(vs1);
             return vs;
         }
+
+
+    }
+    public class Helpers
+    {
+        public static void WriteToConsole<T>(IEnumerable<T> toWrite)
+        {
+            foreach (var item in toWrite)
+            {
+                Console.Write("{0}\t", item);
+            }
+            Console.WriteLine();
+        }
     }
 }
